@@ -2,6 +2,7 @@ package com.bionic.movieplex.dao.beans.user;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
@@ -33,6 +34,7 @@ public class JPAUserDAO extends JPADAO<Integer, User> implements UserDAO {
 
 	@Override
 	public User findUserByLoginPassword(String userLogin, String userPassword) {
+		User user = null;
 		CriteriaQuery<User> criteriaQuery = criteriaBuilder
 				.createQuery(User.class);
 		Root<User> root = criteriaQuery.from(User.class);
@@ -50,7 +52,11 @@ public class JPAUserDAO extends JPADAO<Integer, User> implements UserDAO {
 		criteriaQuery = criteriaQuery.where(predicate1, predicate2);
         TypedQuery<User> typedQuery = entityManager.createQuery(
                 criteriaQuery);
-		User user = typedQuery.getSingleResult();
+		try {
+			user = typedQuery.getSingleResult();
+		} catch (NoResultException e) {
+			
+		}
 		return user;
 	}
 
