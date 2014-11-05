@@ -23,7 +23,7 @@ public class LoginCommand implements ActionCommand {
 		String page = null;
 		String userLogin = request.getParameter(PARAM_NAME_LOGIN);
 		String userPassword = request.getParameter(PARAM_NAME_PASSWORD);
-		User user = DAOFactory.getDAOFactory(DAOFactoryType.MYSQL).getUserDAO()
+		User user = DAOFactory.getDAOFactory().getUserDAO()
 				.findUserByLoginPassword(userLogin, userPassword);
 		if (user != null) {
 			request.setAttribute("userName", user.getUserName());

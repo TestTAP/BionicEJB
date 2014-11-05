@@ -5,7 +5,6 @@ public class ConfigurationManager {
       private static ConfigurationManager instance;
       private ResourceBundle resourceBundle;
 
-      //класс извлекает информацию из файла config.properties
       private static final String BUNDLE_NAME = "com.bionic.movieplex.logic.managers.config";
       public static final String DATABASE_DRIVER_NAME = "DATABASE_DRIVER_NAME";
       public static final String DATABASE_URL = "DATABASE_URL";

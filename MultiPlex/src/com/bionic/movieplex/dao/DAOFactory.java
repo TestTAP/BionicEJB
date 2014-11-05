@@ -11,6 +11,8 @@ import com.bionic.movieplex.dao.factories.OracleDAOFactory;
 
 public abstract class DAOFactory {
 
+	private static DAOFactory daoFactory;
+	
 	public abstract BookingDAO getBookingDAO();
 
 	public abstract CinemaDAO getCinemaDAO();
@@ -21,18 +23,25 @@ public abstract class DAOFactory {
 
 	public abstract UserDAO getUserDAO();
 
-	public static DAOFactory getDAOFactory(DAOFactoryType factoryType) {
+	public static void setDAOFactory(DAOFactoryType factoryType) {
 		switch (factoryType) {
 		case MYSQL:
-			return new MySQLDAOFactory();
+			daoFactory = new MySQLDAOFactory();
+			break;
 		case JPA:
-			return new JPADAOFactory();
+			daoFactory = new JPADAOFactory();
+			break;
 		case ORACLE:
-			return new OracleDAOFactory();
+			daoFactory = new OracleDAOFactory();
+			break;
 		default:
-			return null;
+			daoFactory = new JPADAOFactory();
+			break;
 		}
 	}
 	
+	public static DAOFactory getDAOFactory() {
+		return daoFactory;
+	}
 	
 }

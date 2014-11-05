@@ -12,7 +12,8 @@ import com.bionic.movieplex.dao.beans.user.UserDAO;
 
 public class Main {
 	public static void main(String[] args) {
-		DAOFactory JPADAOFactory = DAOFactory.getDAOFactory(DAOFactoryType.JPA);
+		DAOFactory.setDAOFactory(DAOFactoryType.JPA);
+		DAOFactory JPADAOFactory = DAOFactory.getDAOFactory();
 		UserDAO userDAO = JPADAOFactory.getUserDAO();
 		System.out.println(userDAO.findUserByLoginPassword("Joey", "asd"));
 	}
