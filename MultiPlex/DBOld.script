@@ -1,0 +1,117 @@
+create database if not exists movieplex;
+use movieplex;
+
+create table if not exists Movies(
+	movieID int not null auto_increment,
+	movieName varchar(255) not null,
+	movieYear year,
+	movieCountry int,
+	movieGenre int,
+	movieDirector int,
+	movieCast int,
+	movieStoryLine MEDIUMTEXT,
+	movieDuration varchar(10),
+	movieShowTime TIME,
+	movieCinemas int,
+	primary key (movieID)
+);
+
+create table if not exists Cinemas(
+	cinemaID int not null auto_increment,
+	cinemaName varchar(255) not null,
+	primary key (cinemaId)
+);
+
+create table if not exists MoviesCinemas(
+	movieID int,
+	cinemaID int,
+	foreign key (movieID) references Movies(movieID),
+	foreign key (cinemaID) references Cinemas(cinemaID)
+);
+
+create table if not exists Countries(
+	countryID int not null auto_increment,
+	countryName varchar (255),
+	primary key (countryID) 
+);
+
+create table if not exists MoviesCountries(
+	movieID int,
+	countryID int,
+	foreign key(movieID) references Movies(movieID),
+	foreign key(countryID) references Countries(countryID)
+);
+
+create table if not exists Genres(
+	genreID int not null auto_increment,
+	genreName varchar(25),
+	primary key (genreID)
+);
+
+create table if not exists MoviesGenres(
+	movieID int,
+	genreID int,
+	foreign key(movieID) references Movies(movieID),
+	foreign key(genreID) references Genres(genreID)
+);
+ 
+create table if not exists Stars(
+	starID int not null auto_increment,
+	starName varchar(255),
+	starType int,
+	primary key (starID)
+);
+
+create table if not exists StarType(
+	starTypeID int not null auto_increment,
+	starTypeName varchar(35),
+	primary key (starTypeID)
+);
+
+create table if not exists StarSkills(
+	starID int,
+	starTypeID int,
+	foreign key(starID) references Stars(starID),
+	foreign key(starTypeID) references StarType(starTypeID)
+);
+
+create table if not exists StarType(
+	starTypeID int not null auto_increment,
+	starTypeName varchar(35),
+	primary key (starTypeID)
+);
+	
+create table if not exists UserTypes(
+	userTypeID int not null auto_increment,
+	userTypeName varchar(35),
+	primary key (userTypeID)
+);
+
+create table if not exists Users(
+	userID int not null auto_increment,
+	userType int,
+	userName varchar(255),
+	primary key(userID),
+	foreign key(userType) references UserTypes(userTypeID)
+);
+
+create table if not exists BookingTypes(
+	bookingTypeID int not null auto_increment,
+	bookingTypeName varchar(35),
+	primary key(bookingTypeID)
+);
+
+create table if not exists Bookings(
+	bookingID int not null auto_increment,
+	bookingType int,
+	bookingUser int,
+	bookingMovie int,
+	bookingCinema int,
+	primary key(bookingID),
+	foreign key(bookingType) references BookingTypes(bookingTypeID),
+	foreign key(bookingUser) references Users(userID),
+	foreign key(bookingMovie) references Movies(movieID),
+	foreign key(bookingCinema) references Cinemas(cinemaID)
+);
+
+
