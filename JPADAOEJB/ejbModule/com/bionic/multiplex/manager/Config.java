@@ -15,12 +15,13 @@ public class Config {
     private static Config instance;
     private ResourceBundle resource;
     public static final String DATASOURCE="DATASOURCE";
-    private static final String BUNDLE_NAME = "com.bionic.login.manager.config";
+    private static final String BUNDLE_NAME = "com.bionic.multiplex.manager.config";
     public static final String DRIVER = "DRIVER";
     public static final String URL = "URL";
     public static final String MAIN = "MAIN";
     public static final String ERROR = "ERROR";
     public static final String LOGIN = "LOGIN";
+    public static final String MOVIES = "MOVIES";
 
     public static Config getInstance() {
         if (instance == null) {

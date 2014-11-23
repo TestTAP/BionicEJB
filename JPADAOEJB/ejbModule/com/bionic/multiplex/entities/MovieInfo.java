@@ -18,21 +18,21 @@ public class MovieInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int movieInfoID;
+	private int movieID;
 	private Date movieYear;
-	private String movieCountry; 
+	private String movieCountry;
 	private String movieGenre;
 	private String movieDirector;
 	private String movieCast;
 	private String movieStoryline;
 	private int movieDuration;
 
-	public int getMovieInfoID() {
-		return movieInfoID;
+	public int getMovieID() {
+		return movieID;
 	}
 
-	public void setMovieInfoID(int movieInfoID) {
-		this.movieInfoID = movieInfoID;
+	public void setMovieID(int movieInfoID) {
+		this.movieID = movieInfoID;
 	}
 
 	public Date getMovieYear() {
@@ -98,7 +98,7 @@ public class MovieInfo implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + movieInfoID;
+		result = prime * result + movieID;
 		return result;
 	}
 
@@ -111,7 +111,7 @@ public class MovieInfo implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		MovieInfo other = (MovieInfo) obj;
-		if (movieInfoID != other.movieInfoID)
+		if (movieID != other.movieID)
 			return false;
 		return true;
 	}

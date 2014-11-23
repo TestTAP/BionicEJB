@@ -14,7 +14,7 @@ public class Message {
 
     private static Message instance;
     private ResourceBundle resource;
-    private static final String BUNDLE_NAME = "com.bionic.login.manager.messages";
+    private static final String BUNDLE_NAME = "com.bionic.multiplex.manager.messages";
     public static final String SERVLET_EXCEPTION = "SERVLET_EXCEPTION";
     public static final String IO_EXCEPTION = "IO_EXCEPTION";
     public static final String LOGIN_ERROR = "LOGIN_ERROR";

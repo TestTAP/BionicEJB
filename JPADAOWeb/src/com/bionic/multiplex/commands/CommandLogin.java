@@ -22,11 +22,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-/**
- *
- * @author MAXIM
- */
 @EJB(name = "UsersFacadeLoc", beanInterface = UserFacadeLocal.class)  
 public class CommandLogin implements ICommand {
 
@@ -45,11 +40,9 @@ public class CommandLogin implements ICommand {
         String page = null;
         String login = request.getParameter(LOGIN);
         String password = request.getParameter(PASSWORD);
-
-        System.out.println("Userasdfasfasdf =" + userEJB);
-        User user = userEJB.findByLogin(login);
         
-        if (user.getUserPassword().equals(password)) {
+        User user = userEJB.findByLogin(login);
+        if (user != null && user.getUserPassword().equals(password)) {
             request.setAttribute("user", login);
             page = Config.getInstance().getProperty(Config.MAIN);
         } else {

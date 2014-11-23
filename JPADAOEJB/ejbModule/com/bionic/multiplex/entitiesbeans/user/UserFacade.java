@@ -21,25 +21,13 @@ import javax.persistence.metamodel.SingularAttribute;
 import com.bionic.multiplex.entities.User;
 import com.bionic.multiplex.entitiesbeans.AbstractFacade;
 
-/**
- *
- * @author Artem
- */
 @Stateless
 public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal {
-    @PersistenceContext(unitName = "JPADAOEJB")
-    private EntityManager entityManager;
-
-    @Override
-    protected EntityManager getEntityManager() {
-        return entityManager;
-    }
 
     public UserFacade() {
         super(User.class);
     }
     
-
     @Override
 	public User findByLogin(String userLogin){
     	CriteriaBuilder criteriaBuilder =  entityManager.getCriteriaBuilder();

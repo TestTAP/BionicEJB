@@ -7,41 +7,49 @@ package com.bionic.multiplex.entitiesbeans;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
-/**
- *
- * @author Artem
- */
+
 public abstract class AbstractFacade<T> {
-    private Class<T> entityClass;
+    @PersistenceContext(unitName = "JPADAOEJB")
+	protected EntityManager entityManager;
+    
+	private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 
-    protected abstract EntityManager getEntityManager();
-
     public void create(T entity) {
-        getEntityManager().persist(entity);
+    	entityManager.persist(entity);
     }
 
     public void edit(T entity) {
-        getEntityManager().merge(entity);
+    	entityManager.merge(entity);
     }
 
     public void remove(T entity) {
-        getEntityManager().remove(getEntityManager().merge(entity));
+    	entityManager.remove(entityManager.merge(entity));
     }
 
     public T find(Object id) {
-        return getEntityManager().find(entityClass, id);
+        return entityManager.find(entityClass, id);
     }
 
     public List<T> findAll() {
-        CriteriaQuery<T> cq = getEntityManager().getCriteriaBuilder().createQuery(entityClass);
+        CriteriaQuery<T> cq = entityManager.getCriteriaBuilder().createQuery(entityClass);
         cq.select(cq.from(entityClass));
-        return getEntityManager().createQuery(cq).getResultList();
+        return entityManager.createQuery(cq).getResultList();
     }
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
     
 }

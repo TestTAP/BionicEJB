@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 
@@ -21,6 +22,7 @@ public class Cinema implements Serializable {
 	@Id	
 	private int cinemaID;
 	private String cinemaName;
+	@ManyToMany(mappedBy = "movieCinemas")
 	private List<Movie> cinemaMovies;
 	private int cinemaRows;
 	private int cinemaPlaces;

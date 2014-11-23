@@ -7,6 +7,7 @@ package com.bionic.multiplex.servlet;
 //import com.bionic.login.commands.CommandOrder;
 import com.bionic.multiplex.commands.CommandLogin;
 import com.bionic.multiplex.commands.CommandMissing;
+import com.bionic.multiplex.commands.CommandShowMovies;
 import com.bionic.multiplex.commands.ICommand;
 
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class ControllerHelper {
 
     public ControllerHelper() {
         commands.put("login", new CommandLogin());
+        commands.put("showMovies", new CommandShowMovies());
     }
 
     public ICommand getCommand(HttpServletRequest request) {

@@ -2,9 +2,14 @@ package com.bionic.multiplex.entities;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -21,7 +26,14 @@ public class Movie implements Serializable {
 	private int movieID;
 	private String movieName;
 	private Time movieShowtime;
-	private Cinema movieCinema;
+	@ManyToMany
+	@JoinTable(name = "moviesCinemas", joinColumns = @JoinColumn
+	(name = "movieID", referencedColumnName = "movieID"), 
+	inverseJoinColumns = @JoinColumn(name = "cinemaID", 
+	referencedColumnName = "cinemaID"))
+	private List<Cinema> movieCinemas;
+	@OneToOne
+	@JoinColumn(name = "movieID", insertable=false, updatable=false)
 	private MovieInfo movieInfo;
 
 	public Movie() {
@@ -51,12 +63,12 @@ public class Movie implements Serializable {
 		this.movieShowtime = movieShowtime;
 	}
 
-	public Cinema getMovieCinema() {
-		return movieCinema;
+	public List<Cinema> getMovieCinemas() {
+		return movieCinemas;
 	}
 
-	public void setMovieCinema(Cinema movieCinema) {
-		this.movieCinema = movieCinema;
+	public void setMovieCinemas(List<Cinema> movieCinemas) {
+		this.movieCinemas = movieCinemas;
 	}
 
 	public MovieInfo getMovieInfo() {
@@ -93,7 +105,7 @@ public class Movie implements Serializable {
 	public String toString() {
 		return "Movie [movieID=" + movieID + ", movieName=" + movieName
 				+ ", movieShowTime=" + movieShowtime + ", movieCinema="
-				+ movieCinema + ", movieInfo=" + movieInfo + "]";
+				+ movieCinemas + ", movieInfo=" + movieInfo + "]";
 	}
 
 }
