@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -22,7 +25,11 @@ public class Cinema implements Serializable {
 	@Id	
 	private int cinemaID;
 	private String cinemaName;
-	@ManyToMany(mappedBy = "movieCinemas")
+	@ManyToMany//(fetch=FetchType.EAGER)
+	@JoinTable(name = "moviescinemas", joinColumns = @JoinColumn
+	(name = "cinemaID", referencedColumnName = "cinemaID"), 
+	inverseJoinColumns = @JoinColumn(name = "movieID", 
+	referencedColumnName = "movieID"))
 	private List<Movie> cinemaMovies;
 	private int cinemaRows;
 	private int cinemaPlaces;
@@ -75,6 +82,12 @@ public class Cinema implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + cinemaID;
+		result = prime * result
+				+ ((cinemaMovies == null) ? 0 : cinemaMovies.hashCode());
+		result = prime * result
+				+ ((cinemaName == null) ? 0 : cinemaName.hashCode());
+		result = prime * result + cinemaPlaces;
+		result = prime * result + cinemaRows;
 		return result;
 	}
 
@@ -84,10 +97,24 @@ public class Cinema implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Cinema))
 			return false;
 		Cinema other = (Cinema) obj;
 		if (cinemaID != other.cinemaID)
+			return false;
+		if (cinemaMovies == null) {
+			if (other.cinemaMovies != null)
+				return false;
+		} else if (!cinemaMovies.equals(other.cinemaMovies))
+			return false;
+		if (cinemaName == null) {
+			if (other.cinemaName != null)
+				return false;
+		} else if (!cinemaName.equals(other.cinemaName))
+			return false;
+		if (cinemaPlaces != other.cinemaPlaces)
+			return false;
+		if (cinemaRows != other.cinemaRows)
 			return false;
 		return true;
 	}
@@ -95,8 +122,9 @@ public class Cinema implements Serializable {
 	@Override
 	public String toString() {
 		return "Cinema [cinemaID=" + cinemaID + ", cinemaName=" + cinemaName
-				+ ", cinemaMovies=" + cinemaMovies + ", cinemaRows="
-				+ cinemaRows + ", cinemaPlaces=" + cinemaPlaces + "]";
+				+ ", cinemaRows=" + cinemaRows + ", cinemaPlaces="
+				+ cinemaPlaces + "]";
 	}
+
 
 }

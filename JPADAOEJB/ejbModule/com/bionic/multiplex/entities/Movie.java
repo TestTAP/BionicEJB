@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -26,14 +27,9 @@ public class Movie implements Serializable {
 	private int movieID;
 	private String movieName;
 	private Time movieShowtime;
-	@ManyToMany
-	@JoinTable(name = "moviesCinemas", joinColumns = @JoinColumn
-	(name = "movieID", referencedColumnName = "movieID"), 
-	inverseJoinColumns = @JoinColumn(name = "cinemaID", 
-	referencedColumnName = "cinemaID"))
+	@ManyToMany (mappedBy = "cinemaMovies")//, fetch=FetchType.EAGER)
 	private List<Cinema> movieCinemas;
-	@OneToOne
-	@JoinColumn(name = "movieID", insertable=false, updatable=false)
+	@OneToOne(mappedBy = "movieID")	
 	private MovieInfo movieInfo;
 
 	public Movie() {
