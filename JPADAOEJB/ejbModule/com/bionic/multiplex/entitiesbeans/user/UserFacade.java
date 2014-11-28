@@ -42,7 +42,7 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
 		SingularAttribute<User, String> userAttribute2 = userEntityType
 				.getDeclaredSingularAttribute("userPassword", String.class);
 		Path<String> path2 = root.get(userAttribute2);
-		Predicate predicate2 = criteriaBuilder.like(path2, "asd"); 
+		Predicate predicate2 = criteriaBuilder.like(path2, "%"); 
 		criteriaQuery = criteriaQuery.where(predicate1, predicate2);
         TypedQuery<User> typedQuery = entityManager.createQuery(
                 criteriaQuery);

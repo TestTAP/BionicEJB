@@ -42,6 +42,7 @@ public class CommandLogin implements ICommand {
         String password = request.getParameter(PASSWORD);
         
         User user = userEJB.findByLogin(login);
+        System.out.println(user.getUserPassword());
         if (user != null && user.getUserPassword().equals(password)) {
             request.setAttribute("user", login);
             page = Config.getInstance().getProperty(Config.MAIN);
