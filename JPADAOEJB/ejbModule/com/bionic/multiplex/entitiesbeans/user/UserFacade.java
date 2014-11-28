@@ -5,9 +5,7 @@
 package com.bionic.multiplex.entitiesbeans.user;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -35,7 +33,6 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
 		CriteriaQuery<User> criteriaQuery = criteriaBuilder
 				.createQuery(User.class);
 		Root<User> root = criteriaQuery.from(User.class);
-
 		Metamodel metamodel = entityManager.getMetamodel();
 		EntityType<User> userEntityType = metamodel.entity(User.class);
 		SingularAttribute<User, String> userAttribute1 = userEntityType

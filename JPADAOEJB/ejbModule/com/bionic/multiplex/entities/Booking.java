@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,9 +20,14 @@ public class Booking implements Serializable {
 
 	@Id
 	private int bookingID;
+	@ManyToOne
+	@JoinColumn	(name = "bookingUser")
 	private User bookingUser;
-	private String bookingType;
+	@ManyToOne
+	@JoinColumn (name = "bookingMovie")
 	private Movie bookingMovie;
+	@ManyToOne
+	@JoinColumn (name = "bookingCinema")
 	private Cinema bookingCinema;
 	private int bookingRow;
 	private int bookingPlace;
@@ -35,12 +42,6 @@ public class Booking implements Serializable {
 	}
 	public void setBookingUser(User bookingUser) {
 		this.bookingUser = bookingUser;
-	}
-	public String getBookingType() {
-		return bookingType;
-	}
-	public void setBookingType(String bookingType) {
-		this.bookingType = bookingType;
 	}
 	public Movie getBookingMovie() {
 		return bookingMovie;
@@ -89,7 +90,7 @@ public class Booking implements Serializable {
 	@Override
 	public String toString() {
 		return "Booking [bookingID=" + bookingID + ", bookingUser="
-				+ bookingUser + ", bookingType=" + bookingType
+				+ bookingUser  
 				+ ", bookingMovie=" + bookingMovie + ", bookingCinema="
 				+ bookingCinema + ", bookingRow=" + bookingRow
 				+ ", bookingPlace=" + bookingPlace + "]";

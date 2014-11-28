@@ -7,10 +7,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import com.bionic.multiplex.entities.Cinema;
+import com.bionic.multiplex.entities.Booking;
 import com.bionic.multiplex.entities.Movie;
-import com.bionic.multiplex.entitiesbeans.cinema.CinemaFacade;
-import com.bionic.multiplex.entitiesbeans.cinema.CinemaFacadeLocal;
+import com.bionic.multiplex.entitiesbeans.booking.BookingFacade;
+import com.bionic.multiplex.entitiesbeans.booking.BookingFacadeLocal;
 import com.bionic.multiplex.entitiesbeans.movie.MovieFacade;
 import com.bionic.multiplex.entitiesbeans.movie.MovieFacadeLocal;
 
@@ -22,7 +22,17 @@ public class Main {
 		EntityManager em = emf.createEntityManager();
 		MovieFacadeLocal movieEJB = new MovieFacade();
 		((MovieFacade)movieEJB).setEntityManager(em);
-		//System.out.println(movieEJB.find(1));
+		BookingFacadeLocal bookingEJB = new BookingFacade();
+		((BookingFacade)bookingEJB).setEntityManager(em);
+		List<Booking> bookings = bookingEJB.findAll();
+		for (int i = 0; i < bookings.size(); i++) {
+			System.out.println(bookings.get(i));
+		}
+		List<Movie> movies = movieEJB.findAll();
+		for (int i = 0; i < movies.get(0).getMovieCinemas().size(); i++) {
+			System.out.println(movies.get(0).getMovieCinemas().get(i));
+		}
+/*		//System.out.println(movieEJB.find(1));
 //		em.getTransaction().begin();
 		List<Movie> movies = movieEJB.findAll();
 //		System.out.println(movies.get(0).getMovieCinemas().get(0));
@@ -34,7 +44,7 @@ public class Main {
 		List<Cinema> cinemas = cinemaEJB.findAll();
 		for (Cinema cinema: cinemas) {
 			System.out.println(cinema.getCinemaMovies());
-		}
+		}*/
 //		em.getTransaction().commit();
 /*		Movie movie = new Movie();
 		movie.setMovieID(2);
