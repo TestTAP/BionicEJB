@@ -19,11 +19,8 @@ public class Main {
 	public static void main(String[] args) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPADAOEJB");
 		System.out.println(emf);
-		EntityManager em = emf.createEntityManager();
 		MovieFacadeLocal movieEJB = new MovieFacade();
-		((MovieFacade)movieEJB).setEntityManager(em);
 		OrderFacadeLocal bookingEJB = new OrderFacade();
-		((OrderFacade)bookingEJB).setEntityManager(em);
 		List<Order> orders = bookingEJB.findAll();
 		for (int i = 0; i < orders.size(); i++) {
 			System.out.println(orders.get(i));

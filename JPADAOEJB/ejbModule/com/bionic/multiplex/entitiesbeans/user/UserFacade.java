@@ -5,7 +5,9 @@
 package com.bionic.multiplex.entitiesbeans.user;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -22,18 +24,21 @@ import com.bionic.multiplex.entitiesbeans.AbstractFacade;
 @Stateless
 public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal {
 
+    @PersistenceContext
+    protected EntityManager em;
+	
     public UserFacade() {
         super(User.class);
     }
     
     @Override
 	public User findByLogin(String userLogin){
-    	CriteriaBuilder criteriaBuilder =  entityManager.getCriteriaBuilder();
+    	CriteriaBuilder criteriaBuilder =  em.getCriteriaBuilder();
 		User user = null;
 		CriteriaQuery<User> criteriaQuery = criteriaBuilder
 				.createQuery(User.class);
 		Root<User> root = criteriaQuery.from(User.class);
-		Metamodel metamodel = entityManager.getMetamodel();
+		Metamodel metamodel = em.getMetamodel();
 		EntityType<User> userEntityType = metamodel.entity(User.class);
 		SingularAttribute<User, String> userAttribute1 = userEntityType
 				.getDeclaredSingularAttribute("userLogin", String.class);
@@ -44,7 +49,7 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
 		Path<String> path2 = root.get(userAttribute2);
 		Predicate predicate2 = criteriaBuilder.like(path2, "%"); 
 		criteriaQuery = criteriaQuery.where(predicate1, predicate2);
-        TypedQuery<User> typedQuery = entityManager.createQuery(
+        TypedQuery<User> typedQuery = em.createQuery(
                 criteriaQuery);
 		try {
 			user = typedQuery.getSingleResult();
@@ -53,5 +58,10 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
 		}
 		return user;
     }
+
+	@Override
+	protected EntityManager getEntityManager() {
+		return em;
+	}
     
 }

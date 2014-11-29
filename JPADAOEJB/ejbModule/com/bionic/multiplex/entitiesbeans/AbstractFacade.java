@@ -7,13 +7,14 @@ package com.bionic.multiplex.entitiesbeans;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Selection;
 
 
 public abstract class AbstractFacade<T> {
-    @PersistenceContext(unitName = "JPADAOEJB")
-	protected EntityManager entityManager;
+	protected abstract EntityManager getEntityManager();
     
 	private Class<T> entityClass;
 
@@ -22,33 +23,43 @@ public abstract class AbstractFacade<T> {
     }
 
     public void create(T entity) {
-    	entityManager.persist(entity);
+        getEntityManager().persist(entity);
     }
 
     public void edit(T entity) {
-    	entityManager.merge(entity);
+        getEntityManager().merge(entity);
     }
 
     public void remove(T entity) {
-    	entityManager.remove(entityManager.merge(entity));
+        getEntityManager().remove(getEntityManager().merge(entity));
     }
 
     public T find(Object id) {
-        return entityManager.find(entityClass, id);
+        return getEntityManager().find(entityClass, id);
     }
 
     public List<T> findAll() {
-        CriteriaQuery<T> cq = entityManager.getCriteriaBuilder().createQuery(entityClass);
+        CriteriaQuery<T> cq = getEntityManager().getCriteriaBuilder().createQuery(entityClass);
         cq.select(cq.from(entityClass));
-        return entityManager.createQuery(cq).getResultList();
+        return getEntityManager().createQuery(cq).getResultList();
     }
 
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
+	public List<T> findRange(int[] range) {
+        CriteriaQuery<T> cq = getEntityManager().getCriteriaBuilder().createQuery(entityClass);
+        cq.select(cq.from(entityClass));
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        q.setMaxResults(range[1] - range[0]);
+        q.setFirstResult(range[0]);
+        return q.getResultList();
+    }
 
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
+    public int count() {
+        CriteriaQuery<T> cq = getEntityManager().getCriteriaBuilder().createQuery(entityClass);
+        Root<T> rt = cq.from(entityClass);
+        cq.select((Selection<? extends T>) getEntityManager().getCriteriaBuilder().count(rt));
+        Query q = getEntityManager().createQuery(cq);
+        return ((Long) q.getSingleResult()).intValue();
+    }
+
     
 }
