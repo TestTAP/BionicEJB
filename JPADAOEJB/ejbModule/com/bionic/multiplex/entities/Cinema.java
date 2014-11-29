@@ -30,66 +30,44 @@ public class Cinema implements Serializable {
 	inverseJoinColumns = @JoinColumn(name = "movieID", 
 	referencedColumnName = "movieID"))
 	private List<Movie> cinemaMovies;
-	private int cinemaRows;
-	private int cinemaPlaces;
-
-	public Cinema() {
-	}
-
+	private int cinemaCapacity;
+	
 	public int getCinemaID() {
-		return this.cinemaID;
+		return cinemaID;
 	}
-
 	public void setCinemaID(int cinemaID) {
 		this.cinemaID = cinemaID;
 	}
-
 	public String getCinemaName() {
-		return this.cinemaName;
+		return cinemaName;
 	}
-
 	public void setCinemaName(String cinemaName) {
 		this.cinemaName = cinemaName;
 	}
-
 	public List<Movie> getCinemaMovies() {
 		return cinemaMovies;
 	}
-
 	public void setCinemaMovies(List<Movie> cinemaMovies) {
 		this.cinemaMovies = cinemaMovies;
 	}
-
-	public int getCinemaRows() {
-		return cinemaRows;
+	public int getCinemaCapacity() {
+		return cinemaCapacity;
 	}
-
-	public void setCinemaRows(int cinemaRows) {
-		this.cinemaRows = cinemaRows;
+	public void setCinemaCapacity(int cinemaCapacity) {
+		this.cinemaCapacity = cinemaCapacity;
 	}
-
-	public int getCinemaPlaces() {
-		return cinemaPlaces;
-	}
-
-	public void setCinemaPlaces(int cinemaPlaces) {
-		this.cinemaPlaces = cinemaPlaces;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + cinemaCapacity;
 		result = prime * result + cinemaID;
 		result = prime * result
 				+ ((cinemaMovies == null) ? 0 : cinemaMovies.hashCode());
 		result = prime * result
 				+ ((cinemaName == null) ? 0 : cinemaName.hashCode());
-		result = prime * result + cinemaPlaces;
-		result = prime * result + cinemaRows;
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -99,6 +77,8 @@ public class Cinema implements Serializable {
 		if (!(obj instanceof Cinema))
 			return false;
 		Cinema other = (Cinema) obj;
+		if (cinemaCapacity != other.cinemaCapacity)
+			return false;
 		if (cinemaID != other.cinemaID)
 			return false;
 		if (cinemaMovies == null) {
@@ -111,19 +91,9 @@ public class Cinema implements Serializable {
 				return false;
 		} else if (!cinemaName.equals(other.cinemaName))
 			return false;
-		if (cinemaPlaces != other.cinemaPlaces)
-			return false;
-		if (cinemaRows != other.cinemaRows)
-			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Cinema [cinemaID=" + cinemaID + ", cinemaName=" + cinemaName
-				+ ", cinemaRows=" + cinemaRows + ", cinemaPlaces="
-				+ cinemaPlaces + "]";
-	}
 
 
 }

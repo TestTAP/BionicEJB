@@ -7,10 +7,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import com.bionic.multiplex.entities.Booking;
+import com.bionic.multiplex.entities.Order;
 import com.bionic.multiplex.entities.Movie;
-import com.bionic.multiplex.entitiesbeans.booking.BookingFacade;
-import com.bionic.multiplex.entitiesbeans.booking.BookingFacadeLocal;
+import com.bionic.multiplex.entitiesbeans.booking.OrderFacade;
+import com.bionic.multiplex.entitiesbeans.booking.OrderFacadeLocal;
 import com.bionic.multiplex.entitiesbeans.movie.MovieFacade;
 import com.bionic.multiplex.entitiesbeans.movie.MovieFacadeLocal;
 
@@ -22,11 +22,11 @@ public class Main {
 		EntityManager em = emf.createEntityManager();
 		MovieFacadeLocal movieEJB = new MovieFacade();
 		((MovieFacade)movieEJB).setEntityManager(em);
-		BookingFacadeLocal bookingEJB = new BookingFacade();
-		((BookingFacade)bookingEJB).setEntityManager(em);
-		List<Booking> bookings = bookingEJB.findAll();
-		for (int i = 0; i < bookings.size(); i++) {
-			System.out.println(bookings.get(i));
+		OrderFacadeLocal bookingEJB = new OrderFacade();
+		((OrderFacade)bookingEJB).setEntityManager(em);
+		List<Order> orders = bookingEJB.findAll();
+		for (int i = 0; i < orders.size(); i++) {
+			System.out.println(orders.get(i));
 		}
 		List<Movie> movies = movieEJB.findAll();
 		for (int i = 0; i < movies.get(0).getMovieCinemas().size(); i++) {
