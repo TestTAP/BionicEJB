@@ -16,9 +16,15 @@ public class MovieFacade extends AbstractFacade<Movie> implements MovieFacadeLoc
 	public MovieFacade() {
 		super(Movie.class);
 	}
+	
+	public MovieFacade(EntityManager em) {
+		this();
+		this.em = em;
+	}
 
 	@Override
 	protected EntityManager getEntityManager() {
 		return em;
 	}
+	
 }

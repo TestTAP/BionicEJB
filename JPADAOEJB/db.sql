@@ -18,37 +18,6 @@ USE `movieplex`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `bookings`
---
-
-DROP TABLE IF EXISTS `bookings`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bookings` (
-  `bookingID` int(11) NOT NULL AUTO_INCREMENT,
-  `bookingUser` int(11) NOT NULL,
-  `bookingType` varchar(35) NOT NULL,
-  `bookingMovie` int(11) NOT NULL,
-  `bookingCinema` int(11) NOT NULL,
-  `bookingRow` int(11) NOT NULL,
-  `bookingPlace` int(11) NOT NULL,
-  PRIMARY KEY (`bookingID`),
-  KEY `bookingType` (`bookingType`),
-  KEY `bookings_ibfk_2` (`bookingUser`),
-  CONSTRAINT `bookings_ibfk_2` FOREIGN KEY (`bookingUser`) REFERENCES `users` (`userID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `bookings`
---
-
-LOCK TABLES `bookings` WRITE;
-/*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `cinemas`
 --
 
@@ -58,10 +27,9 @@ DROP TABLE IF EXISTS `cinemas`;
 CREATE TABLE `cinemas` (
   `cinemaID` int(11) NOT NULL AUTO_INCREMENT,
   `cinemaName` varchar(255) NOT NULL,
-  `cinemaRows` int(11) NOT NULL,
-  `cinemaPlaces` int(11) NOT NULL,
+  `cinemaCapacity` int(11) NOT NULL,
   PRIMARY KEY (`cinemaID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,6 +38,7 @@ CREATE TABLE `cinemas` (
 
 LOCK TABLES `cinemas` WRITE;
 /*!40000 ALTER TABLE `cinemas` DISABLE KEYS */;
+REPLACE  IGNORE INTO `cinemas` (`cinemaID`, `cinemaName`, `cinemaCapacity`) VALUES (1,'Dark',33),(2,'New Cinema',22);
 /*!40000 ALTER TABLE `cinemas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +50,8 @@ DROP TABLE IF EXISTS `movieinfo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `movieinfo` (
-  `movieID` int(11) NOT NULL,
+  `movieInfoID` int(11) NOT NULL AUTO_INCREMENT,
+  `movieID` int(11) DEFAULT NULL,
   `movieYear` year(4) DEFAULT NULL,
   `movieCountry` varchar(45) DEFAULT NULL,
   `movieGenre` varchar(45) DEFAULT NULL,
@@ -89,9 +59,10 @@ CREATE TABLE `movieinfo` (
   `movieCast` varchar(45) DEFAULT NULL,
   `movieStoryline` varchar(45) DEFAULT NULL,
   `movieDuration` int(11) DEFAULT NULL,
-  PRIMARY KEY (`movieID`),
+  PRIMARY KEY (`movieInfoID`),
+  KEY `fk_movieinfo_movies1` (`movieID`),
   CONSTRAINT `fk_movieinfo_movies1` FOREIGN KEY (`movieID`) REFERENCES `movies` (`movieID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,6 +71,7 @@ CREATE TABLE `movieinfo` (
 
 LOCK TABLES `movieinfo` WRITE;
 /*!40000 ALTER TABLE `movieinfo` DISABLE KEYS */;
+REPLACE  IGNORE INTO `movieinfo` (`movieInfoID`, `movieID`, `movieYear`, `movieCountry`, `movieGenre`, `movieDirector`, `movieCast`, `movieStoryline`, `movieDuration`) VALUES (1,1,2012,'USA','super','Nollan','Dicap','short',120);
 /*!40000 ALTER TABLE `movieinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,6 +96,7 @@ CREATE TABLE `movies` (
 
 LOCK TABLES `movies` WRITE;
 /*!40000 ALTER TABLE `movies` DISABLE KEYS */;
+REPLACE  IGNORE INTO `movies` (`movieID`, `movieName`, `movieShowTime`) VALUES (1,'Inception','23:00:00'),(2,'New Movie','23:23:16');
 /*!40000 ALTER TABLE `movies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,12 +108,13 @@ DROP TABLE IF EXISTS `moviescinemas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `moviescinemas` (
-  `movieID` int(11) DEFAULT NULL,
-  `cinemaID` int(11) DEFAULT NULL,
+  `movieID` int(11) NOT NULL,
+  `cinemaID` int(11) NOT NULL,
+  PRIMARY KEY (`movieID`,`cinemaID`),
   KEY `fk_moviescinemas_cinemas1_idx` (`cinemaID`),
   KEY `fk_moviescinemas_movies1_idx` (`movieID`),
-  CONSTRAINT `fk_moviescinemas_cinemas` FOREIGN KEY (`cinemaID`) REFERENCES `cinemas` (`cinemaID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_moviescinemas_movies` FOREIGN KEY (`movieID`) REFERENCES `movies` (`movieID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_cinameid` FOREIGN KEY (`cinemaID`) REFERENCES `cinemas` (`cinemaID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_movieid` FOREIGN KEY (`movieID`) REFERENCES `movies` (`movieID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -150,7 +124,40 @@ CREATE TABLE `moviescinemas` (
 
 LOCK TABLES `moviescinemas` WRITE;
 /*!40000 ALTER TABLE `moviescinemas` DISABLE KEYS */;
+REPLACE  IGNORE INTO `moviescinemas` (`movieID`, `cinemaID`) VALUES (1,1),(2,2);
 /*!40000 ALTER TABLE `moviescinemas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orders` (
+  `orderID` int(11) NOT NULL AUTO_INCREMENT,
+  `orderUser` int(11) NOT NULL,
+  `orderMovie` int(11) NOT NULL,
+  `orderCinema` int(11) NOT NULL,
+  PRIMARY KEY (`orderID`),
+  KEY `fk_bookings_movies1_idx` (`orderMovie`),
+  KEY `cinemaID_idx` (`orderCinema`),
+  KEY `userID_idx` (`orderUser`),
+  CONSTRAINT `orderCinemaID` FOREIGN KEY (`orderCinema`) REFERENCES `cinemas` (`cinemaID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `orderMovieID` FOREIGN KEY (`orderMovie`) REFERENCES `movies` (`movieID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `orderUserID` FOREIGN KEY (`orderUser`) REFERENCES `users` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders`
+--
+
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+REPLACE  IGNORE INTO `orders` (`orderID`, `orderUser`, `orderMovie`, `orderCinema`) VALUES (1,1,2,2);
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -168,7 +175,7 @@ CREATE TABLE `users` (
   `userName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`userID`),
   KEY `userType` (`userType`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -177,6 +184,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+REPLACE  IGNORE INTO `users` (`userID`, `userLogin`, `userPassword`, `userType`, `userName`) VALUES (1,'root','root','admin','admin');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -189,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-23 22:55:14
+-- Dump completed on 2014-11-30 21:40:58

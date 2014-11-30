@@ -1,7 +1,5 @@
 package com.bionic.multiplex.entitiesbeans.booking;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -20,10 +18,9 @@ public class OrderFacade extends AbstractFacade<Order> implements OrderFacadeLoc
 		super(Order.class);
 	}
 
-	@Override
-	public List<Order> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public OrderFacade(EntityManager em) {
+		this();
+		this.em = em;
 	}
 
 	@Override
