@@ -38,7 +38,7 @@ CREATE TABLE `cinemas` (
 
 LOCK TABLES `cinemas` WRITE;
 /*!40000 ALTER TABLE `cinemas` DISABLE KEYS */;
-REPLACE  IGNORE INTO `cinemas` (`cinemaID`, `cinemaName`, `cinemaCapacity`) VALUES (1,'Dark',33),(2,'New Cinema',22);
+INSERT INTO `cinemas` (`cinemaID`, `cinemaName`, `cinemaCapacity`) VALUES (1,'Dark',33),(2,'New Cinema',22);
 /*!40000 ALTER TABLE `cinemas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -71,7 +71,7 @@ CREATE TABLE `movieinfo` (
 
 LOCK TABLES `movieinfo` WRITE;
 /*!40000 ALTER TABLE `movieinfo` DISABLE KEYS */;
-REPLACE  IGNORE INTO `movieinfo` (`movieInfoID`, `movieID`, `movieYear`, `movieCountry`, `movieGenre`, `movieDirector`, `movieCast`, `movieStoryline`, `movieDuration`) VALUES (1,1,2012,'USA','super','Nollan','Dicap','short',120);
+INSERT INTO `movieinfo` (`movieInfoID`, `movieID`, `movieYear`, `movieCountry`, `movieGenre`, `movieDirector`, `movieCast`, `movieStoryline`, `movieDuration`) VALUES (1,1,2012,'USA','super','Nollan','Dicap','short',120);
 /*!40000 ALTER TABLE `movieinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +96,7 @@ CREATE TABLE `movies` (
 
 LOCK TABLES `movies` WRITE;
 /*!40000 ALTER TABLE `movies` DISABLE KEYS */;
-REPLACE  IGNORE INTO `movies` (`movieID`, `movieName`, `movieShowTime`) VALUES (1,'Inception','23:00:00'),(2,'New Movie','23:23:16');
+INSERT INTO `movies` (`movieID`, `movieName`, `movieShowTime`) VALUES (1,'Inception','23:00:00'),(2,'New Movie','23:23:16');
 /*!40000 ALTER TABLE `movies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,7 +124,7 @@ CREATE TABLE `moviescinemas` (
 
 LOCK TABLES `moviescinemas` WRITE;
 /*!40000 ALTER TABLE `moviescinemas` DISABLE KEYS */;
-REPLACE  IGNORE INTO `moviescinemas` (`movieID`, `cinemaID`) VALUES (1,1),(2,2);
+INSERT INTO `moviescinemas` (`movieID`, `cinemaID`) VALUES (1,1),(2,2);
 /*!40000 ALTER TABLE `moviescinemas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +156,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-REPLACE  IGNORE INTO `orders` (`orderID`, `orderUser`, `orderMovie`, `orderCinema`) VALUES (1,1,2,2);
+INSERT INTO `orders` (`orderID`, `orderUser`, `orderMovie`, `orderCinema`) VALUES (1,1,2,2);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,7 +184,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-REPLACE  IGNORE INTO `users` (`userID`, `userLogin`, `userPassword`, `userType`, `userName`) VALUES (1,'root','root','admin','admin');
+INSERT INTO `users` (`userID`, `userLogin`, `userPassword`, `userType`, `userName`) VALUES (1,'root','root','admin','admin');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

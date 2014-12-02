@@ -1,25 +1,24 @@
-package com.bionic.multiplex.entitiesbeans.movie;
+package com.bionic.multiplex.entitiesbeans.order;
 
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.bionic.multiplex.entities.Movie;
+import com.bionic.multiplex.entities.Order;
 import com.bionic.multiplex.entitiesbeans.AbstractFacade;
 
 @Named
 @Stateless
-public class MovieFacade extends AbstractFacade<Movie> implements MovieFacadeLocal {
-
+public class OrderFacade extends AbstractFacade<Order> implements OrderFacadeLocal {
     @PersistenceContext
     protected EntityManager em;
 	
-	public MovieFacade() {
-		super(Movie.class);
+	public OrderFacade() {
+		super(Order.class);
 	}
-	
-	public MovieFacade(EntityManager em) {
+
+	public OrderFacade(EntityManager em) {
 		this();
 		this.em = em;
 	}
@@ -28,5 +27,5 @@ public class MovieFacade extends AbstractFacade<Movie> implements MovieFacadeLoc
 	protected EntityManager getEntityManager() {
 		return em;
 	}
-	
+
 }

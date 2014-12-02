@@ -55,15 +55,15 @@
                     <table cellpadding="5" cellspacing="5">
                         <tr>
                             <th align="left">Movie Id:</th>
-                            <td>#{movieClientBean.movie.id}</td>
+                            <td>#{movie}</td>
                         </tr>
                         <tr>
-                            <th align="left">Movie Name:</th>
-                            <td>#{movieClientBean.movie.name}</td>
+                            <th align="left">Movie Country:</th>
+                            <td>#{movieInfoFacade.find(movie.movieID).movieCountry}</td>
                         </tr>
                         <tr>
-                            <th align="left">Movie Actors:</th>
-                            <td>#{movieClientBean.movie.actors}</td>
+                            <th align="left">Movie Genre:</th>
+                            <td>#{movieInfoFacade.find(movie.movieID).movieGenre}</td>
                         </tr>
                         
                     </table>

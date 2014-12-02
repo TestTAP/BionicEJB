@@ -17,4 +17,7 @@ public interface MovieFacadeLocal {
 	Movie find(Object id);
 
 	List<Movie> findAll();
+	
+	int count();
+	
 }

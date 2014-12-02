@@ -3,6 +3,8 @@ package com.bionic.multiplex.entities;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -13,6 +15,8 @@ import javax.persistence.OneToOne;
  * 
  */
 
+@Named
+@RequestScoped
 @Entity
 public class MovieInfo implements Serializable {
 	private static final long serialVersionUID = 1L;

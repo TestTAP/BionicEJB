@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -15,6 +19,8 @@ import javax.persistence.Table;
  * 
  */
 
+@Named
+@ApplicationScoped
 @Entity
 @Table(name = "Movies")
 public class Movie implements Serializable {
@@ -23,10 +29,10 @@ public class Movie implements Serializable {
 	@Id
 	private int movieID;
 	private String movieName;
-	private Time movieShowtime;
+	private Time movieShowTime;
 	@ManyToMany (mappedBy = "cinemaMovies")//, fetch=FetchType.EAGER)
 	private List<Cinema> movieCinemas;
-	@OneToOne(mappedBy = "movieID")	
+	@OneToOne(mappedBy = "movieID", fetch=FetchType.EAGER)	
 	private MovieInfo movieInfo;
 
 	public Movie() {
@@ -48,12 +54,12 @@ public class Movie implements Serializable {
 		this.movieName = movieName;
 	}
 
-	public Time getMovieShowtime() {
-		return movieShowtime;
+	public Time getMovieShowTime() {
+		return movieShowTime;
 	}
 
-	public void setMovieShowtime(Time movieShowtime) {
-		this.movieShowtime = movieShowtime;
+	public void setMovieShowTime(Time movieShowTime) {
+		this.movieShowTime = movieShowTime;
 	}
 
 	public List<Cinema> getMovieCinemas() {
@@ -97,7 +103,7 @@ public class Movie implements Serializable {
 	@Override
 	public String toString() {
 		return "Movie [movieID=" + movieID + ", movieName=" + movieName
-				+ ", movieShowTime=" + movieShowtime + ", movieCinema="
+				+ ", movieShowTime=" + movieShowTime + ", movieCinema="
 				+ movieCinemas + ", movieInfo=" + movieInfo + "]";
 	}
 

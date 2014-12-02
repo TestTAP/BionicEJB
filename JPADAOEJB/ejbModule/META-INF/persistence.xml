@@ -9,5 +9,8 @@
 		<class>com.bionic.multiplex.entities.Cinema</class>
 		<class>com.bionic.multiplex.entities.Movie</class>
 		<class>com.bionic.multiplex.entities.MovieInfo</class>
+		<properties>
+			   <property name="eclipselink.cache.shared.default" value="false" />
+		</properties>
 	</persistence-unit>
 </persistence>

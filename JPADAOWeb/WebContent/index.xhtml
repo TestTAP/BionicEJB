@@ -49,7 +49,7 @@
         <ui:composition template="./WEB-INF/template.xhtml">
 
             <ui:define name="content">
-                Showing #{movieFacadeREST.countREST()} movies in #{theaterFacadeREST.countREST()} theaters!
+                Showing #{movieFacade.count()} movies in #{cinemaFacade.count()} cinemas!
             </ui:define>
 
         </ui:composition>

@@ -17,4 +17,6 @@ public interface CinemaFacadeLocal {
 	Cinema find(Object id);
 
 	List<Cinema> findAll();
+	
+	int count();
 }
