@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.Entity;
@@ -19,8 +18,6 @@ import javax.persistence.Table;
  * 
  */
 
-@Named
-@ApplicationScoped
 @Entity
 @Table(name = "Movies")
 public class Movie implements Serializable {
@@ -32,7 +29,7 @@ public class Movie implements Serializable {
 	private Time movieShowTime;
 	@ManyToMany (mappedBy = "cinemaMovies")//, fetch=FetchType.EAGER)
 	private List<Cinema> movieCinemas;
-	@OneToOne(mappedBy = "movieID", fetch=FetchType.EAGER)	
+	@OneToOne(mappedBy = "movieID")//, fetch=FetchType.EAGER)	
 	private MovieInfo movieInfo;
 
 	public Movie() {

@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import com.bionic.multiplex.entities.Movie;
 import com.bionic.multiplex.entitiesbeans.AbstractFacade;
 
-@Named
 @Stateless
 public class MovieFacade extends AbstractFacade<Movie> implements MovieFacadeLocal {
 
@@ -19,11 +18,6 @@ public class MovieFacade extends AbstractFacade<Movie> implements MovieFacadeLoc
 		super(Movie.class);
 	}
 	
-	public MovieFacade(EntityManager em) {
-		this();
-		this.em = em;
-	}
-
 	@Override
 	protected EntityManager getEntityManager() {
 		return em;

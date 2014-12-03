@@ -18,7 +18,6 @@ import javax.persistence.Table;
  */
 
 @Entity
-@RequestScoped
 @Table(name = "Cinemas")
 public class Cinema implements Serializable {
 	private static final long serialVersionUID = 1L;

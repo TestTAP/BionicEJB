@@ -18,11 +18,6 @@ public class OrderFacade extends AbstractFacade<Order> implements OrderFacadeLoc
 		super(Order.class);
 	}
 
-	public OrderFacade(EntityManager em) {
-		this();
-		this.em = em;
-	}
-
 	@Override
 	protected EntityManager getEntityManager() {
 		return em;

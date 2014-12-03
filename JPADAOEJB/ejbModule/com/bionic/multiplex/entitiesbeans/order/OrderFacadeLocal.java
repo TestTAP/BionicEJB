@@ -18,4 +18,6 @@ public interface OrderFacadeLocal {
 
     List<Order> findAll();
     
+    int count();
+    
 }

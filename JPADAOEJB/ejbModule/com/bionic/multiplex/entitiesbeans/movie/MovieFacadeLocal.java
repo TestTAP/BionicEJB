@@ -10,9 +10,9 @@ import com.bionic.multiplex.entities.Movie;
 public interface MovieFacadeLocal {
 	void create(Movie users);
 
-	void edit(Movie users);
+	void edit(Movie movie);
 
-	void remove(Movie users);
+	void remove(Movie movie);
 
 	Movie find(Object id);
 

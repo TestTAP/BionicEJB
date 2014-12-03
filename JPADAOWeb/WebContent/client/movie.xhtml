@@ -55,15 +55,39 @@
                     <table cellpadding="5" cellspacing="5">
                         <tr>
                             <th align="left">Movie Id:</th>
-                            <td>#{movie.movieID}</td>
+                            <td>#{movieBackingBean.movie.movieID}</td>
                         </tr>
                         <tr>
+                            <th align="left">Movie Name:</th>
+                            <td>#{movieBackingBean.movie.movieName}</td>
+                        </tr>
+                        <tr>
+                            <th align="left">Movie Year:</th>
+                            <td>#{movieBackingBean.movie.movieInfo.movieYear}</td>
+                        </tr>
+                            <tr>
                             <th align="left">Movie Country:</th>
-                            <td>#{movieInfoFacade.find(movie.movieID).movieCountry}</td>
+                            <td>#{movieBackingBean.movie.movieInfo.movieCountry}</td>
                         </tr>
-                        <tr>
+                            <tr>
                             <th align="left">Movie Genre:</th>
-                            <td>#{movieInfoFacade.find(movie.movieID).movieGenre}</td>
+                            <td>#{movieBackingBean.movie.movieInfo.movieGenre}</td>
+                        </tr>
+                            <tr>
+                            <th align="left">Movie Director:</th>
+                            <td>#{movieBackingBean.movie.movieInfo.movieDirector}</td>
+                        </tr>
+                            <tr>
+                            <th align="left">Movie Cast:</th>
+                            <td>#{movieBackingBean.movie.movieInfo.movieCast}</td>
+                        </tr>
+                            <tr>
+                            <th align="left">Movie Storyline:</th>
+                            <td>#{movieBackingBean.movie.movieInfo.movieStoryline}</td>
+                        </tr>
+                            <tr>
+                            <th align="left">Movie Duration:</th>
+                            <td>#{movieBackingBean.movie.movieInfo.movieDuration}</td>
                         </tr>
                         
                     </table>
