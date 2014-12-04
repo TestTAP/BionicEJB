@@ -8,11 +8,11 @@ import com.bionic.multiplex.entities.Order;
 
 @Local
 public interface OrderFacadeLocal {
-    void create(Order users);
+    void create(Order order);
 
-    void edit(Order users);
+    void edit(Order order);
 
-    void remove(Order users);
+    void remove(Order order);
 
     Order find(Object id);
 

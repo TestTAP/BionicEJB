@@ -9,11 +9,11 @@ import com.bionic.multiplex.entities.MovieInfo;
 @Local
 public interface MovieInfoFacadeLocal {
 
-    void create(MovieInfo users);
+    void create(MovieInfo movieInfo);
 
-    void edit(MovieInfo users);
+    void edit(MovieInfo movieInfo);
 
-    void remove(MovieInfo users);
+    void remove(MovieInfo movieInfo);
 
     MovieInfo find(Object id);
 

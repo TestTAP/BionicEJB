@@ -8,7 +8,7 @@ import com.bionic.multiplex.entities.Movie;
 
 @Local
 public interface MovieFacadeLocal {
-	void create(Movie users);
+	void create(Movie movie);
 
 	void edit(Movie movie);
 

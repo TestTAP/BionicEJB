@@ -2,16 +2,19 @@ package com.bionic.multiplex.entities;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the movies database table.
@@ -24,15 +27,19 @@ public class Movie implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int movieID;
 	private String movieName;
-	private Time movieShowTime;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date movieShowTime;
 	@ManyToMany (mappedBy = "cinemaMovies")//, fetch=FetchType.EAGER)
 	private List<Cinema> movieCinemas;
-	@OneToOne(mappedBy = "movieID")//, fetch=FetchType.EAGER)	
+	@OneToOne(mappedBy = "movieID", cascade = CascadeType.ALL)//, fetch=FetchType.EAGER)	
 	private MovieInfo movieInfo;
 
 	public Movie() {
+		movieInfo = new MovieInfo();
+		movieInfo.setMovieID(this);
 	}
 
 	public int getMovieID() {
@@ -51,11 +58,11 @@ public class Movie implements Serializable {
 		this.movieName = movieName;
 	}
 
-	public Time getMovieShowTime() {
+	public Date getMovieShowTime() {
 		return movieShowTime;
 	}
 
-	public void setMovieShowTime(Time movieShowTime) {
+	public void setMovieShowTime(Date movieShowTime) {
 		this.movieShowTime = movieShowTime;
 	}
 

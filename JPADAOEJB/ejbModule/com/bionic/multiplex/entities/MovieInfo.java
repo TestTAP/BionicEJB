@@ -1,11 +1,11 @@
 package com.bionic.multiplex.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -20,11 +20,12 @@ public class MovieInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int movieInfoID;
-	@OneToOne
+	@OneToOne (cascade = CascadeType.ALL)
 	@JoinColumn(name = "movieID")
 	private Movie movieID;
-	private Date movieYear;
+	private int movieYear;
 	private String movieCountry;
 	private String movieGenre;
 	private String movieDirector;
@@ -48,11 +49,11 @@ public class MovieInfo implements Serializable {
 		this.movieID = movieID;
 	}
 
-	public Date getMovieYear() {
+	public int getMovieYear() {
 		return movieYear;
 	}
 
-	public void setMovieYear(Date movieYear) {
+	public void setMovieYear(int movieYear) {
 		this.movieYear = movieYear;
 	}
 
@@ -120,12 +121,11 @@ public class MovieInfo implements Serializable {
 		result = prime * result + movieDuration;
 		result = prime * result
 				+ ((movieGenre == null) ? 0 : movieGenre.hashCode());
-		result = prime * result + movieID.hashCode();
+		result = prime * result + ((movieID == null) ? 0 : movieID.hashCode());
 		result = prime * result + movieInfoID;
 		result = prime * result
 				+ ((movieStoryline == null) ? 0 : movieStoryline.hashCode());
-		result = prime * result
-				+ ((movieYear == null) ? 0 : movieYear.hashCode());
+		result = prime * result + movieYear;
 		return result;
 	}
 
@@ -160,7 +160,10 @@ public class MovieInfo implements Serializable {
 				return false;
 		} else if (!movieGenre.equals(other.movieGenre))
 			return false;
-		if (movieID != other.movieID)
+		if (movieID == null) {
+			if (other.movieID != null)
+				return false;
+		} else if (!movieID.equals(other.movieID))
 			return false;
 		if (movieInfoID != other.movieInfoID)
 			return false;
@@ -169,10 +172,7 @@ public class MovieInfo implements Serializable {
 				return false;
 		} else if (!movieStoryline.equals(other.movieStoryline))
 			return false;
-		if (movieYear == null) {
-			if (other.movieYear != null)
-				return false;
-		} else if (!movieYear.equals(other.movieYear))
+		if (movieYear != other.movieYear)
 			return false;
 		return true;
 	}

@@ -8,11 +8,11 @@ import com.bionic.multiplex.entities.Cinema;
 
 @Local
 public interface CinemaFacadeLocal {
-	void create(Cinema users);
+	void create(Cinema cinema);
 
-	void edit(Cinema users);
+	void edit(Cinema cinema);
 
-	void remove(Cinema users);
+	void remove(Cinema cinema);
 
 	Cinema find(Object id);
 
