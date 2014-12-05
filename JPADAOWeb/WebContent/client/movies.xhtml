@@ -55,19 +55,20 @@
 
 			<h1>List of Movies</h1>
 			<h:form prependId="false">
-				<h:selectOneRadio value="#{movieBackingBean.movie.movieID}"
+				<h:selectOneRadio id="radio" 
+					value="#{movieBackingBean.movie.movieID}" required="true"
 					layout="pageDirection">
 					<c:forEach items="#{movieBackingBean.movies}" var="m">
 						<f:selectItem itemValue="#{m.movieID}" itemLabel="#{m.movieName}" />
 					</c:forEach>
 				</h:selectOneRadio>
-
-				<h:commandButton value="Details" action="movie" 
+				<h:commandButton value="Details" action="movie"
 					actionListener="#{movieBackingBean.findMovie()}" />
 				<h:commandButton value="Delete" action="movies"
 					actionListener="#{movieBackingBean.deleteMovie()}" />
-				<h:commandButton value="New Movie" action="addmovie"
-					actionListener="#{movieBackingBean.resetMovie()}" />
+				<h:commandButton value="New Movie" immediate="true" action="addmovie" />
+				<br/>
+				<h:message for="radio" style="color:red"></h:message>
 			</h:form>
 		</ui:define>
 

@@ -32,9 +32,9 @@ public class Movie implements Serializable {
 	private String movieName;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date movieShowTime;
-	@ManyToMany (mappedBy = "cinemaMovies")//, fetch=FetchType.EAGER)
+	@ManyToMany (mappedBy = "cinemaMovies")
 	private List<Cinema> movieCinemas;
-	@OneToOne(mappedBy = "movieID", cascade = CascadeType.ALL)//, fetch=FetchType.EAGER)	
+	@OneToOne(mappedBy = "movieID", cascade = CascadeType.ALL)
 	private MovieInfo movieInfo;
 
 	public Movie() {

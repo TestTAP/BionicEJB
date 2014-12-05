@@ -1,18 +1,18 @@
 package com.bionic.multiplex.backingbeans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import com.bionic.multiplex.entities.Movie;
 import com.bionic.multiplex.entitiesbeans.movie.MovieFacadeLocal;
-import com.bionic.multiplex.entitiesbeans.movieinfo.MovieInfoFacadeLocal;
 
 @Named
-@SessionScoped
+@RequestScoped
 public class MovieBackingBean implements Serializable {
 
 	/**
@@ -22,10 +22,8 @@ public class MovieBackingBean implements Serializable {
 
 	@EJB
 	private MovieFacadeLocal movieFacade;
-	@EJB
-	private MovieInfoFacadeLocal movieInfoFacade;
-	private Movie movie;
-	private List<Movie> movies;
+	private Movie movie = new Movie();
+	private List<Movie> movies = new ArrayList<Movie>();
 
 	public List<Movie> getMovies() {
 		movies = movieFacade.findAll();
@@ -33,22 +31,12 @@ public class MovieBackingBean implements Serializable {
 	}
 
 	public void setMovie(Movie movie) {
+		System.out.println("setMovie()");
 		this.movie = movie;
 	}
 
-	public void findMovie() {
-		System.out.println("finding movie");
-		if (movie != null) {
-			movie = movieFacade.find(movie.getMovieID());
-		} else {
-			movie = new Movie();
-		}
-	}
-
 	public Movie getMovie() {
-		if (movie == null) {
-			movie = new Movie();
-		}
+		System.out.println("getMovie(): " + movie.getMovieID());
 		return movie;
 	}
 
@@ -57,7 +45,10 @@ public class MovieBackingBean implements Serializable {
 	}
 
 	public void deleteMovie() {
-		movieFacade.remove(getMovie());
+		if (movie.getMovieID() != 0) {
+			movieFacade.remove(movie);
+			movie = new Movie();
+		}
 	}
 
 	public void addMovie() {
@@ -65,8 +56,13 @@ public class MovieBackingBean implements Serializable {
 		movieFacade.create(movie);
 	}
 
-	public void resetMovie() {
-		movie = new Movie();
+	public void findMovie() {
+		System.out.println("finding movie: " + movie.getMovieID());
+		if (movie.getMovieID() != 0) {
+			movie = movieFacade.find(movie.getMovieID());
+		} else if (movie == null) {
+			movie = new Movie();
+		}
 	}
 
 }
