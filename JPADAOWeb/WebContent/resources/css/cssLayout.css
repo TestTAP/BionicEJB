@@ -14,10 +14,19 @@
     margin: 10px 0px 0px 0px;
 }
 
+#left_up {
+	float:left;
+	background-color: #ece3a5;
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 150px;
+}
+
 #left {
-    float: left;
+ 	float: left;
     background-color: #ece3a5;
     padding: 5px;
+    margin-top: 150px;
     width: 150px;
 }
 
@@ -35,6 +44,7 @@
 }
 
 .left_content {
+	position:absolute;
     background-color: #dddddd;
     padding: 5px;
     margin-left: 170px;

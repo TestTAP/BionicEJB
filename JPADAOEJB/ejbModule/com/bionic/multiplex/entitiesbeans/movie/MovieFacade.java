@@ -1,7 +1,6 @@
 package com.bionic.multiplex.entitiesbeans.movie;
 
 import javax.ejb.Stateless;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 

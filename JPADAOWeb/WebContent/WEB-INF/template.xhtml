@@ -76,10 +76,18 @@
 		</ui:insert>
 	</div>
 	<div>
+		<div id="left_up">
+			<ui:insert name="left">
+				<h:form>
+					<h:outputLink
+						value="${facesContext.externalContext.requestContextPath}/faces/client/movies.xhtml">Movies</h:outputLink>
+				</h:form>
+			</ui:insert>
+		</div>
 		<div id="left">
 			<ui:insert name="left">
 				<h:form>
-					            <h:commandLink action="booking">Book a movie</h:commandLink> 
+					<h:commandLink action="booking">Book a movie</h:commandLink>
 					<!--            <p/><h:outputLink value="${facesContext.externalContext.requestContextPath}/faces/chat/chatroom.xhtml">Chat Room</h:outputLink> -->
 					<p />
 					<h:outputLink
